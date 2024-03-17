@@ -33,18 +33,19 @@ export default function Header() {
 
       <div className="flex gap-2 md:order-2">
         <Button className="w-12 h-10 hidden sm:inline" color="lime" pill>
-          <FaMoon />
+          <FaMoon /> {/* boton de tema claro/oscuro */}
         </Button>
         <Link to="/sign-in">
           <Button gradientDuoTone="tealToLime" outline>
             Sign In
           </Button>
         </Link>
-        <Navbar.Toggle />
+        <Navbar.Toggle /> {/* hamburguersita */}
       </div>
 
       <Navbar.Collapse>
         <Navbar.Link active={path === "/"} as={"div"}>
+          {/* as div es para evitgar error de anidamiento de link */}
           <Link to="/">Home</Link>
         </Navbar.Link>
         <Navbar.Link active={path === "/about"} as={"div"}>
