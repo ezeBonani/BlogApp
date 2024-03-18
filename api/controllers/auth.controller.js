@@ -1,9 +1,10 @@
 import User from "../models/user.model.js";
 import bcryptjs from "bcryptjs";
 /* instalar el paquete bcryptjs para hashear password en base de datos */
+import { errorHandler } from "../utils/error.js";
 
 /* funcion asincrona, requiere procesamiento */
-export const signup = async (req, res) => {
+export const signup = async (req, res, next) => {
   const { username, email, password } = req.body;
 
   if (
@@ -14,7 +15,7 @@ export const signup = async (req, res) => {
     email === "" ||
     password === ""
   ) {
-    return res.status(400).json({ message: "all fields are required" });
+    next(errorHandler(400, "All fields are required"));
   }
 
   const hashedPassword = bcryptjs.hashSync(password, 10);
@@ -30,6 +31,6 @@ export const signup = async (req, res) => {
     res.json("Signup successful");
   } catch (error) {
     /* si repito usuario o email */
-    res.status(500).json({ message: error.message });
+    next(error);
   }
 };
