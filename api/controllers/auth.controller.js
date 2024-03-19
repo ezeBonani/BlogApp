@@ -1,6 +1,6 @@
 import User from "../models/user.model.js";
-import bcryptjs from "bcryptjs";
 /* instalar el paquete bcryptjs para hashear password en base de datos */
+import bcryptjs from "bcryptjs";
 import { errorHandler } from "../utils/error.js";
 
 /* funcion asincrona, requiere procesamiento */
@@ -23,7 +23,7 @@ export const signup = async (req, res, next) => {
   const newUser = new User({
     username,
     email,
-    hashedPassword,
+    password: hashedPassword,
   });
 
   try {
