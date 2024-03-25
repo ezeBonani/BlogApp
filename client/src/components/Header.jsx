@@ -45,7 +45,7 @@ export default function Header() {
 
       <Navbar.Collapse>
         <Navbar.Link active={path === "/"} as={"div"}>
-          {/* as div es para evitgar error de anidamiento de link */}
+          {/* as div es para evitar error de anidamiento de link */}
           <Link to="/">Home</Link>
         </Navbar.Link>
         <Navbar.Link active={path === "/about"} as={"div"}>

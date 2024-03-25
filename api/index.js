@@ -1,6 +1,6 @@
 import express from "express";
 import mongoose from "mongoose";
-import dotenv from "dotenv";
+import dotenv from "dotenv"; //para manipular variables de entorno, la contraseña, en un archivo a parte
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
 

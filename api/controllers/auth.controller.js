@@ -30,7 +30,7 @@ export const signup = async (req, res, next) => {
     await newUser.save();
     res.json("Signup successful");
   } catch (error) {
-    /* si repito usuario o email */
+    /* si repito usuario o email salta error*/
     next(error);
   }
 };
