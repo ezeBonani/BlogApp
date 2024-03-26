@@ -1,1 +1,3 @@
 correrlo desde la carpeta raiz, con npm run dev
+
+jsonwebtoken para autenticacion
