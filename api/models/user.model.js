@@ -17,6 +17,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       require: true,
     },
+    profilePicture: {
+      type: String,
+      default: "https://i.redd.it/v0caqchbtn741.jpg",
+    },
   },
   {
     timestamps: true,
