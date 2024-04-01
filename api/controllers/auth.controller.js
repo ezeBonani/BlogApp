@@ -52,7 +52,9 @@ export const signin = async (req, res, next) => {
     if (!validPassword) {
       return next(errorHandler(400, "Invalid password, try again"));
     }
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET); //el campo _id lo genera mongoDB
+    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
+      expiresIn: "3h",
+    }); //el campo _id lo genera mongoDB, el token expira en 3hrs
 
     const { password: pass, ...rest } = validUser._doc; //saco el password
 
