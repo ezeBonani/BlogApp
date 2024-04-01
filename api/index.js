@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import dotenv from "dotenv"; //para manipular variables de entorno, la contraseña, en un archivo a parte
 import userRoutes from "./routes/user.route.js";
 import authRoutes from "./routes/auth.route.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config(); /* lo uso para el archivo env donde tengo el link seguro de la DB de mongoDB */
 
@@ -13,12 +14,11 @@ mongoose
 
 const app = express();
 
-/* permitir los input en json */
+/* middleware para permitir los input en json */
 app.use(express.json());
 
-app.listen(3000, () => {
-  console.log("Server running on port 3000");
-});
+//para el uso de las cookies
+app.use(cookieParser());
 
 app.use("/api/user", userRoutes);
 app.use("/api/auth", authRoutes);
@@ -31,4 +31,8 @@ app.use((err, req, res, next) => {
     statusCode,
     message,
   });
+});
+
+app.listen(3000, () => {
+  console.log("Server running on port 3000");
 });
