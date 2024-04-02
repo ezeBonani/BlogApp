@@ -7,7 +7,7 @@ export const verifyToken = (req, res, next) => {
   const token = req.cookies.access_token;
   //se necesita paquete cookie-parser
   if (!token) {
-    return next(errorHandler(401, "Unauthorized!"));
+    return next(errorHandler(404, "User not found"));
   }
   jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
     if (err) {
