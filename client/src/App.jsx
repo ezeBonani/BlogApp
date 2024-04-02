@@ -9,8 +9,25 @@ import Projects from "./pages/Projects";
 import Header from "./components/Header";
 import { FooterCom } from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
+import { useCallback, useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { signoutSuccess } from "./redux/user/userSlice";
+
+if (sessionStorage.getItem("isInit") === null) {
+  sessionStorage.setItem("isInit", "false");
+}
 
 export default function App() {
+  //deslogeo solo 1 vez al iniciar la app
+  const dispatch = useDispatch();
+  useEffect(() => {
+    if (sessionStorage.getItem("isInit") === "false") {
+      dispatch(signoutSuccess());
+      sessionStorage.setItem("isInit", true);
+      console.log("reinicio");
+    }
+  }, []);
+
   return (
     <BrowserRouter>
       <Header /> {/* lo incluyo en todas las secciones */}
