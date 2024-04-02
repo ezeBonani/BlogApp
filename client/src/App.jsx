@@ -9,7 +9,7 @@ import Projects from "./pages/Projects";
 import Header from "./components/Header";
 import { FooterCom } from "./components/Footer";
 import PrivateRoute from "./components/PrivateRoute";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { signoutSuccess } from "./redux/user/userSlice";
 
