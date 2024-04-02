@@ -21,6 +21,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "https://i.redd.it/v0caqchbtn741.jpg",
     },
+    isAdmin: {
+      type: Boolean,
+      default: false,
+    },
   },
   {
     timestamps: true,

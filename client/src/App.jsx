@@ -13,6 +13,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { signoutSuccess } from "./redux/user/userSlice";
 
+//deslogeo solo 1 vez al iniciar la app
 if (sessionStorage.getItem("isInit") === null) {
   sessionStorage.setItem("isInit", "false");
 }

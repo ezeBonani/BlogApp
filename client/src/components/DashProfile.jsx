@@ -36,6 +36,7 @@ export default function DashProfile() {
   const dispatch = useDispatch();
 
   const filePickerRef = useRef(null);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
@@ -68,7 +69,7 @@ export default function DashProfile() {
     const fileName = new Date().getTime() + imageFile.name; //para hacer el nombre unico agrego el tiempo
     const storageRef = ref(storage, fileName); //metodo de firebase
     const uploadTask = uploadBytesResumable(storageRef, imageFile); //metodo de firebase
-    //subida de imagen
+    //subida de imagen en firebase
     uploadTask.on(
       "state_changed",
       (snapshot) => {
@@ -113,6 +114,7 @@ export default function DashProfile() {
     }
     try {
       dispatch(updateStart());
+      console.log(formData);
       const res = await fetch(`/api/user/update/${currentUser._id}`, {
         method: "PUT",
         headers: {
@@ -122,13 +124,16 @@ export default function DashProfile() {
       });
       const data = await res.json();
       if (!res.ok) {
+        console.log("no subido");
         dispatch(updateFailure(data.message));
         setUpdateUserError(data.message);
       } else {
+        console.log("subido");
         dispatch(updateSuccess(data));
         setUpdateUserSuccess("User's profile updated successfully");
       }
     } catch (error) {
+      console.log("no subido");
       dispatch(updateFailure(error.message));
       setUpdateUserError(error.message);
     }
