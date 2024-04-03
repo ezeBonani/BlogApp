@@ -52,9 +52,13 @@ export const signin = async (req, res, next) => {
     if (!validPassword) {
       return next(errorHandler(400, "Invalid password, try again"));
     }
-    const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET, {
-      expiresIn: "6h",
-    }); //el campo _id lo genera mongoDB, el token expira en 6hrs
+    const token = jwt.sign(
+      { id: validUser._id, isAdmin: validUser.isAdmin },
+      process.env.JWT_SECRET,
+      {
+        expiresIn: "6h",
+      }
+    ); //el campo _id lo genera mongoDB, el token expira en 6hrs
 
     const { password: pass, ...rest } = validUser._doc; //saco el password
 
@@ -73,13 +77,20 @@ export const google = async (req, res, next) => {
     const user = await User.findOne({ email });
     if (user) {
       //existe el usuario
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET); //el campo _id lo genera mongoDB
+      const token = jwt.sign(
+        { id: user._id, isAdmin: user.isAdmin },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "6h",
+        }
+      ); //el campo _id lo genera mongoDB
       const { password, ...rest } = user._doc; //saco el password
       res
         .status(200)
         .cookie("access_token", token, { httpOnly: true })
         .json(rest);
     } else {
+      //si no existe email creo usuario
       const generatedPaswword =
         Math.random().toString(36).slice(-8) +
         Math.random().toString(36).slice(-8); //genero una password random
@@ -93,7 +104,13 @@ export const google = async (req, res, next) => {
         profilePicture: googlePhotoUrl,
       });
       await newUser.save();
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET); //el campo _id lo genera mongoDB
+      const token = jwt.sign(
+        { id: user._id, isAdmin: newUser.isAdmin },
+        process.env.JWT_SECRET,
+        {
+          expiresIn: "6h",
+        }
+      ); //el campo _id lo genera mongoDB
       const { password, ...rest } = user._doc; //saco el password
       res
         .status(200)

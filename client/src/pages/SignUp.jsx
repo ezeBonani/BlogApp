@@ -106,6 +106,7 @@ export default function SignUp() {
             </Button>
             <OAuth />
           </form>
+          {/* parte inferior */}
           <div className="mt-2 flex gap-2 text-sm">
             <span>Have an account? </span>
             <Link to="/sign-in" className="text-blue-500">
